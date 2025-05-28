@@ -14,7 +14,7 @@ TEST_CASE("MST - Kruskal's Algorithm") {
 
     int totalWeight = 0;
     for (const Edge& e : result) {
-        totalWeight += e.weight;
+        totalWeight += e.getWeight();
     }
 
     REQUIRE(result.size() == 3);

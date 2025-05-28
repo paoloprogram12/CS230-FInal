@@ -54,8 +54,6 @@ int main() {
 
     kruskals(edges, numVertices);
 
-
-
     return 0;
 }
 
@@ -99,7 +97,7 @@ void kruskals(vector<Edge>& g, int v) {
     for (Edge e : MST) {
         cout << e.getSource() << " -- " << e.getDestination() << " == " << e.getWeight() << endl;
     }
-    cout "Total Weight: " << totalWeight << endl;
+    cout << "Total Weight: " << totalWeight << endl;
 
 }
 

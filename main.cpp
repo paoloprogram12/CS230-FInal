@@ -12,6 +12,10 @@ private:
 public:
     Edge(int source, int destination, int weight) : source(source), destination(destination), weight(weight) {}
 
+    int getSource() const { return source; }
+    int getDestination() const { return destination; }
+    int getWeight() const { return weight; }
+
     // compare weight with other weight
     bool operator<(const Edge& other) const { return this->weight < other.weight; }
 };
@@ -29,7 +33,7 @@ public:
 
 void kruskals(vector<Edge>&, int);
 int find(int, vector<int>&);
-void unionSets(int, int, vector<int>&, vector<int>&);
+void unionSet(int, int, vector<int>&, vector<int>&);
 
 int main() {
 
@@ -72,11 +76,30 @@ void kruskals(vector<Edge>& g, int v) {
     // assigns the depth to 0 for each vertex
     vector<int> rank(v, 0);
 
-    for (int i = 0; i < v ; i++) {
-        // assigns vertices into parent
-        parent[i] = i;
+    // assigns vertices into parent
+    for (int i = 0; i < v ; i++) { parent[i] = i; }
+
+    // holds the MST
+    int totalWeight = 0;
+    vector<Edge> MST;
+    for (Edge e : g) {
+        int u = e.getSource();
+        int vtx = e.getDestination();
+        int w = e.getWeight();
+
+        // if u and v are in different sets, then add to MST
+        if (find(u, parent) != find(vtx, parent)) {
+            MST.push_back(e);
+            unionSet(u, vtx, parent, rank); // merge the two groups
+            totalWeight += w;
+        }
     }
 
+    cout << "Edges in MST:" << endl;
+    for (Edge e : MST) {
+        cout << e.getSource() << " -- " << e.getDestination() << " == " << e.getWeight() << endl;
+    }
+    cout "Total Weight: " << totalWeight << endl;
 
 }
 

@@ -3,15 +3,6 @@
 #include <algorithm>
 using namespace std;
 
-class Vertex {
-private:
-    int num;
-    string name;
-
-public:
-    Vertex(int num, string name) : num(num), name(name) {}
-};
-
 class Edge {
 private:
     int source;
@@ -40,6 +31,7 @@ void kruskals(vector<Edge>&, int);
 
 int main() {
 
+
     // graph declaration
     vector<Edge> edges; 
     int numVertices = 5; // vertices: 0, 1, 2, 3, 4
@@ -66,9 +58,23 @@ void kruskals(vector<Edge>& g, int v) {
     // sort the graph by weight, operator < helps with STL sort
     sort(g.begin(), g.end());
 
-    // parent vector: used to find which group the vertex belongs to
-    vector<Edge> parent;
+    // goal: group vertices, each vertex is its own group, and as we add edges
+    // we connect vertices into larger groups
+    // if two vertices are in the same group, it means they're already connected in the MST
+    // used to prevent cycles
+    // knows when its safe to connect two dots
+    // parent vector: used to find which group the vertex belongs to (leader)
 
+    vector<int> parent;
     // rank vector: used to figure out which group will become the parent when merging the vectors
-    vector<Edge> rank;
+    vector<int> rank;
+
+    for (int i = 0; i < v ; i++) {
+        // assigns vertices into parent
+        parent[i] = i;
+        // assigns the depth to 0 for each vertex
+        rank[i] = 0;
+    }
+
+    // 
 }

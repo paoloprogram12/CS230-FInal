@@ -28,6 +28,8 @@ public:
 // has the minimum possible total edge weight
 
 void kruskals(vector<Edge>&, int);
+int find(int, vector<int>&);
+void unionSets(int, int, vector<int>&, vector<int>&);
 
 int main() {
 
@@ -64,17 +66,44 @@ void kruskals(vector<Edge>& g, int v) {
     // used to prevent cycles
     // knows when its safe to connect two dots
     // parent vector: used to find which group the vertex belongs to (leader)
+    vector<int> parent(v);
 
-    vector<int> parent;
     // rank vector: used to figure out which group will become the parent when merging the vectors
-    vector<int> rank;
+    // assigns the depth to 0 for each vertex
+    vector<int> rank(v, 0);
 
     for (int i = 0; i < v ; i++) {
         // assigns vertices into parent
         parent[i] = i;
-        // assigns the depth to 0 for each vertex
-        rank[i] = 0;
     }
 
-    // 
+
+}
+
+// find is used to figure out what group does the vertex belong to
+int find(int x, vector<int>& p) {
+    if (p[x] == x) { return x; }
+
+    return p[x] = find(p[x], p);
+}
+
+// merge the groups that contain two vertices, u, and v
+// done after we've checked using the find fuction that u and v are in different groups
+// u is the source
+// v is the destination
+void unionSet(int u, int v, vector<int>& p, vector<int>& r) {
+    // used to figure out which group is u and v in
+    int rootU = find(u, p);
+    int rootV = find(v, p);
+
+    // goal is to compare ranks to keep the parents shallow
+    // if the depth of rank[u] is less than rank[v], assigns v to the parent of u
+    if (r[rootU] < r[rootV]) { p[rootU] = rootV; }
+    // if the depth of rank[v] is less than rank[u], assigns u to the parent of v
+    else if (r[rootU] > r[rootV]) { p[rootV] = rootU; }
+    // if their ranks are equal, assigns either one to each other and increments the ranks by 1
+    else { 
+        p[rootV] = rootU;
+        r[rootU]++;
+    }
 }

@@ -31,8 +31,8 @@ private:
 
 public:
     Graph(int vertex) : vertices(vertex) {}
-    void addEdge(int u, int v, double w);
-    vector<Edge> findMST();
+    void addEdge(int u, int v, int w);
+    vector<Edge> kruskals();
 };
 
 #endif

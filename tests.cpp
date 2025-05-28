@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "graph.cpp"
+#include "graph.hpp"
 
 TEST_CASE("MST - Kruskal's Algorithm") {
     Graph g(4);

@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 class Vertex {
@@ -34,8 +36,39 @@ public:
 // has no cycles
 // has the minimum possible total edge weight
 
+void kruskals(vector<Edge>&, int);
+
 int main() {
+
+    // graph declaration
+    vector<Edge> edges; 
+    int numVertices = 5; // vertices: 0, 1, 2, 3, 4
+    edges.push_back(Edge(0, 1, 10));
+    edges.push_back(Edge(0, 2, 6));
+    edges.push_back(Edge(0, 3, 5));
+    edges.push_back(Edge(1, 3, 15));
+    edges.push_back(Edge(2, 3, 4));
+    edges.push_back(Edge(1, 2, 7));
+    edges.push_back(Edge(2, 4, 9));
+    edges.push_back(Edge(3, 4, 8));
+    edges.push_back(Edge(1, 4, 11));
+    edges.push_back(Edge(0, 4, 14));
+
+    kruskals(edges, numVertices);
+
 
 
     return 0;
+}
+
+void kruskals(vector<Edge>& g, int v) {
+
+    // sort the graph by weight, operator < helps with STL sort
+    sort(g.begin(), g.end());
+
+    // parent vector: used to find which group the vertex belongs to
+    vector<Edge> parent;
+
+    // rank vector: used to figure out which group will become the parent when merging the vectors
+    vector<Edge> rank;
 }
